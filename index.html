@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Парные карточки</title>
+    <link href="styles/styles.css" rel="stylesheet">
+    <link href="pic/title.svg" rel="icon" type="image/icon">
+    <!-- вариант 8 -->
+</head>
+<body>
+<header>
+    <ul class="list">
+        <li><a class="top-btn" href="index.html">Новая игра</a></li>
+        <li><a class="top-btn" href="#" id="settings">Настройки</a></li>
+    </ul>
+</header>
+<div class="table">
+    <div id="card-container">
+        <div class="card" id="card1">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card2">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card3">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card4">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card5">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card6">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card7">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card8">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card9">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card10">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card11">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card12">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card13">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card14">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card15">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card16">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card17">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+        <div class="card" id="card18">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
+    </div>
+</div>
+<div class="modal-background">
+    <div class="modal-window">
+        <div><p class="h-text">ИГРА ПРОЙДЕНА</p></div>
+        <hr>
+        <div><p id="time">Общее время: </p></div>
+        <div><p id="moves">Ходы: </p></div>
+    </div>
+</div>
+<div class="modal-background">
+    <div class="modal-window">
+        <div><p class="h-text">НАСТРОЙКИ</p></div>
+        <hr>
+        <div>
+            <div><p class="h-text">Сложность</p></div>
+            <br>
+            <p><input checked id=“normal” name="difficulty" type="radio" onclick="animationDuration = 1000"><label for=“normal”>Нормальная</label></p>
+            <p><input id=“advanced” name="difficulty" type="radio" onclick="animationDuration = 500"><label for=“advanced”>Повышенная</label></p>
+            <p><input id=“hard” name="difficulty" type="radio" onclick="animationDuration = 250"><label for=“hard”>Хардкор</label></p>
+        </div>
+    </div>
+</div>
+<script src="scripts/scripts.js"></script>
+</body>
+</html>
