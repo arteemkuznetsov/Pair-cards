@@ -5,7 +5,6 @@
     <title>Парные карточки</title>
     <link href="styles/styles.css" rel="stylesheet">
     <link href="pic/title.svg" rel="icon" type="image/icon">
-    <!-- вариант 8 -->
 </head>
 <body>
 <header>
@@ -100,14 +99,22 @@
 </div>
 <div class="modal-background">
     <div class="modal-window">
-        <div><p class="h-text">НАСТРОЙКИ</p></div>
+        <span class="h-text">НАСТРОЙКИ</span>
+        <span>
+            <img alt="Close" id="close" src="pic/cancel.svg"
+                   onmousedown="this.src = 'pic/cancel-pressed.svg'"
+                   onmouseup="this.src = 'pic/cancel.svg'">
+        </span>
         <hr>
         <div>
             <div><p class="h-text">Сложность</p></div>
             <br>
-            <p><input checked id=“normal” name="difficulty" type="radio" onclick="animationDuration = 1000"><label for=“normal”>Нормальная</label></p>
-            <p><input id=“advanced” name="difficulty" type="radio" onclick="animationDuration = 500"><label for=“advanced”>Повышенная</label></p>
-            <p><input id=“hard” name="difficulty" type="radio" onclick="animationDuration = 250"><label for=“hard”>Хардкор</label></p>
+            <p><input checked id=“normal” name="difficulty" onclick="animationDuration = 1000" type="radio"><label
+                    for=“normal”>Нормальная</label></p>
+            <p><input id=“advanced” name="difficulty" onclick="animationDuration = 500" type="radio"><label
+                    for=“advanced”>Повышенная</label></p>
+            <p><input id=“hard” name="difficulty" onclick="animationDuration = 250" type="radio"><label for=“hard”>Хардкор</label>
+            </p>
         </div>
     </div>
 </div>

@@ -148,8 +148,14 @@ a {
     margin: 0;
 }
 
-.modal-window .h-text {
+.h-text {
     font-size: 26pt;
     padding: 0;
-    margin: 0;
+    margin-left: 25px;
+}
+
+#close {
+    width: 25px;
+    height: auto;
+    float: right;
 }
