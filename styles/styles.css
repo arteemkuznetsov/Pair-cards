@@ -54,11 +54,6 @@ a {
     box-shadow: rgba(0, 0, 0, 0.5) 15px 15px 15px;
 }
 
-.table .is-dark {
-    background: rgba(0, 0, 0, 0.5); /* полупрозрачный цвет фона */
-    transition: 0.5s ease-in;
-}
-
 #card-container {
     width: 750px;
     height: 550px;
@@ -117,7 +112,7 @@ a {
     visibility: hidden;
 }
 
-.modal-background {
+.modal-container {
     text-align: center;
     margin: 0; /* убираем отступы */
     padding: 0; /* убираем отступы */
@@ -126,7 +121,7 @@ a {
     bottom: 0;
     left: 0;
     right: 0;
-    opacity: 0;  /* Делаем невидимым -- 1 */
+    opacity: 0;  /* Делаем невидимым */
     pointer-events: none; /* элемент невидим для событий мыши */
 }
 

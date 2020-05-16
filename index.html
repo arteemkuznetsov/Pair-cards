@@ -5,6 +5,9 @@
     <title>Парные карточки</title>
     <link href="styles/styles.css" rel="stylesheet">
     <link href="pic/title.svg" rel="icon" type="image/icon">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
@@ -15,6 +18,10 @@
 </header>
 <div class="table">
     <div id="card-container">
+        <div class="card" id="card0">
+            <div class="card_face card_face--front"></div>
+            <div class="card_face card_face--back"></div>
+        </div>
         <div class="card" id="card1">
             <div class="card_face card_face--front"></div>
             <div class="card_face card_face--back"></div>
@@ -83,13 +90,9 @@
             <div class="card_face card_face--front"></div>
             <div class="card_face card_face--back"></div>
         </div>
-        <div class="card" id="card18">
-            <div class="card_face card_face--front"></div>
-            <div class="card_face card_face--back"></div>
-        </div>
     </div>
 </div>
-<div class="modal-background">
+<div class="modal-container">
     <div class="modal-window">
         <div><p class="h-text">ИГРА ПРОЙДЕНА</p></div>
         <hr>
@@ -97,7 +100,7 @@
         <div><p id="moves">Ходы: </p></div>
     </div>
 </div>
-<div class="modal-background">
+<div class="modal-container">
     <div class="modal-window">
         <span class="h-text">НАСТРОЙКИ</span>
         <span>

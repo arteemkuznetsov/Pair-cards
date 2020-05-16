@@ -1,4 +1,5 @@
 let animationDuration = 1000; // длительность анимации переворота обратно (можно изменять с помощью выбора сложности)
+let isBlocked = false;
 let files = [
     "avallach.jpg",
     "cirilla.jpg",
@@ -11,8 +12,7 @@ let files = [
     "yennefer.jpg"
 ];
 let generatedIds = []; // идентификаторы карт
-let container = document.getElementById('card-container'); // для быстрого доступа к элементу card-container
-let cardsOnTable = container.children; // карты на столе
+let cardsOnTable = $('#card-container').children(); // карты на столе
 
 function initCards() {
     for (let i = 0; i < cardsOnTable.length; i++) {
@@ -30,72 +30,92 @@ function initCards() {
     for (let i = 0; i < files.length; i++) { // привязываем каждое изображение
         for (let j = 0; j < 2; j++) { // каждое изображение должно повторяться дважды
             // заднюю часть карты, расположенной в случайном месте (текущий элемент generatedIds[]), стилизуем текущим изображением, двигаясь поочередно
-            document.getElementsByClassName('card_face--back')[generatedIds[k]].style.backgroundImage = "url(pic/" + files[i] + ")";
+            $('.card_face--back:eq(' + generatedIds[k] + ')').css('backgroundImage', 'url(pic/' + files[i] + ')');
             k++;
         }
     }
 }
 
 function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max)); // Math.random() возвращает [0, 1], поэтому умножаем на большее число
+    return Math.floor(Math.random() * Math.floor(max)); // Math.random() возвращает [0, 1], поэтому умножаем на число-верхнюю границу генерации рандомных чисел
 }
 
 function getBackgroundImage(i) {
-    return document.getElementsByClassName('card_face--back')[i].style.backgroundImage;
+    return $('.card_face--back:eq(' + i + ')').css('backgroundImage');
+}
+
+function showOnStart() {
+    /* блокируем клики на карты сразу после инициализации игры */
+    isBlocked = true;
+    /* через две секунды переворачиваем все карты, демонстрируя их обратную сторону */
+    setTimeout(function () {
+        for (let i = 0; i < cardsOnTable.length; i++) {
+            $('#card' + i).toggleClass('is-flipped');
+        }
+    }, 2000);
+    /* через одну секунду снова переворачиваем карты рубашкой вверх */
+    setTimeout(function () {
+        for (let i = 0; i < cardsOnTable.length; i++) {
+            $('#card' + i).toggleClass('is-flipped');
+        }
+    }, 1000);
+    /* через две секунды (время взято с запасом для переворота карт обратно) разблокируем клики и можем играть */
+    setTimeout(function () {
+        isBlocked = false;
+    }, 2000);
 }
 
 function initGame() {
     let cardsOnTableCounter = 18; // счетчик количества карт на столе
     let startTime, endTime; // время начала и окончания игры
     let moves = 0; // количество ходов
-    let isBlocked = false;
 
     let clickedCardsIDs = []; // выбранная пара карт
 
     for (let i = 0; i < cardsOnTable.length; i++) { // вешаем на все карты обработчики событий
-        let card = cardsOnTable[i];
-        card.onclick = function () {
+        let card = $('#card' + i);
+        $(document).on('click', '#card' + i, function() {
             if (!isBlocked) {
-                card.classList.toggle('is-flipped'); // применение к карте класса 'is-flipped' для имитации переворота
+                card.toggleClass('is-flipped'); // применение к карте класса 'is-flipped' для имитации переворота
                 clickedCardsIDs.push(i); // добавляем ID выбранной карты в массив
                 moves++;
 
                 if (moves === 1) startTime = new Date().getTime();
 
-                let elem1 = document.getElementsByClassName("card")[clickedCardsIDs[0]];
-                let elem2 = document.getElementsByClassName("card")[clickedCardsIDs[1]];
+                let elem1 = $('.card:eq(' + clickedCardsIDs[0] + ')');
+                let elem2 = $('.card:eq(' + clickedCardsIDs[1] + ')');
 
                 if (clickedCardsIDs.length === 2) { // если было выбрано 2 карты
                     /* если у этих двух карт одинаковые картинки сзади */
                     if (getBackgroundImage(clickedCardsIDs[0]) === getBackgroundImage(clickedCardsIDs[1])) {
                         setTimeout(function () { // анимация вращения и исчезания пары карт через 2 секунды
-                            elem1.classList.toggle('is-rotating');
-                            elem2.classList.toggle('is-rotating');
+                            elem1.toggleClass('is-rotating');
+                            elem2.toggleClass('is-rotating');
 
-                            elem1.classList.toggle('is-hidden');
-                            elem2.classList.toggle('is-hidden')
-                        }, animationDuration);
+                            elem1.toggleClass('is-hidden');
+                            elem2.toggleClass('is-hidden')
+                        }, 1000);
                         cardsOnTableCounter -= 2;
                         if (cardsOnTableCounter === 0) { // окончание игры, когда карт на столе не осталось
                             endTime = new Date().getTime();
                             let diff = endTime - startTime;
                             let resultTime;
-                            diff >= 1000 ? resultTime = diff / 1000 + " с" : resultTime = diff + " мс";
+                            diff >= 1000 ? resultTime = Math.trunc(diff / 1000) + " с" : resultTime = Math.trunc(diff) + " мс";
 
-                            document.getElementById('time').innerHTML += resultTime;
-                            document.getElementById('moves').innerHTML += moves;
+                            $('#time').html('Общее время: ' + resultTime);
+                            $('#moves').html('Ходы: ' + moves);
 
                             /* делаем видимым фон модального окна вместе со всеми его потомками */
                             setTimeout(function () {
-                                document.getElementsByClassName('modal-background')[0].style.opacity = "1";
+                                $('.modal-container:eq(0)').css('opacity', '1');
                             }, 3000);
                         }
                     } else { // если у двух карт разные картинки сзади
                         /* блокируем клики всех карт, чтобы нельзя было быстрыми кликами перевернуть полстола и подсмотреть */
                         isBlocked = true;
-                        setTimeout(function () { // анимация переворачивания обратно через 1 секунду
-                            elem1.classList.toggle('is-flipped');
-                            elem2.classList.toggle('is-flipped');
+                        setTimeout(function () { // анимация переворачивания обратно
+                            elem1.toggleClass('is-flipped');
+                            elem2.toggleClass('is-flipped');
                             /* снова разрешаем клики */
                             isBlocked = false;
                         }, animationDuration);
@@ -103,29 +123,30 @@ function initGame() {
                     clickedCardsIDs.length = 0;
                 }
             }
-        };
+        });
     }
 
     let isSettingsClicked = false;
-    document.getElementById('settings').addEventListener('click', function () {
+    $(document).on('click', '#settings', function() {
         isSettingsClicked = !isSettingsClicked;
         if (isSettingsClicked) {
-            document.getElementsByClassName('modal-background')[1].style.opacity = "1";
-            document.getElementsByClassName('modal-window')[1].style.pointerEvents = "visible";
+            $('.modal-container:eq(1)').css('opacity', '1');
+            $('.modal-window:eq(1)').css('pointerEvents', 'visible');
         } else {
-            document.getElementsByClassName('modal-background')[1].style.opacity = "0";
-            document.getElementsByClassName('modal-window')[1].style.pointerEvents = "none";
+            $('.modal-container:eq(1)').css('opacity', '0');
+            $('.modal-window:eq(1)').css('pointerEvents', 'none');
         }
     });
-    document.getElementById('close').onclick = function () {
+    $(document).on('click', '#close', function() {
         isSettingsClicked = !isSettingsClicked;
-        document.getElementsByClassName('modal-background')[1].style.opacity = "0";
-        document.getElementsByClassName('modal-window')[1].style.pointerEvents = "none";
-    }
+        $('.modal-container:eq(1)').css('opacity', '0');
+        $('.modal-window:eq(1)').css('pointerEvents', 'none');
+    });
 
 }
 
 initCards();
 initGame();
+showOnStart();
 
 
